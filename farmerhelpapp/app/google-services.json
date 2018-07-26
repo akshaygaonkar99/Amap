@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "214922558958",
+    "firebase_url": "https://farmerhelpapp.firebaseio.com",
+    "project_id": "farmerhelpapp",
+    "storage_bucket": "farmerhelpapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214922558958:android:ec2d2c142aaf96a6",
+        "android_client_info": {
+          "package_name": "com.example.manjunath.farmerhelpapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214922558958-p933jee5f1eb24ga5r8u9ap10fshbfg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.manjunath.farmerhelpapp",
+            "certificate_hash": "da55eeb06e85543205985c7456298969000d000e"
+          }
+        },
+        {
+          "client_id": "214922558958-a3mcgu0mq4qo21hejnqici8u2ifc1jnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACIykFmQOj4GYEgjLT1inWVSVGLxVwYAo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214922558958-a3mcgu0mq4qo21hejnqici8u2ifc1jnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
