@@ -1,6 +1,8 @@
 package com.example.manjunath.farmerhelpapp.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -10,6 +12,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -17,7 +21,9 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +33,20 @@ import com.example.manjunath.farmerhelpapp.R;
 import com.example.manjunath.farmerhelpapp.fragment.homefragment;
 import com.example.manjunath.farmerhelpapp.fragment.setting;
 import com.example.manjunath.farmerhelpapp.others.CircleTransform;
+import com.example.manjunath.farmerhelpapp.others.ImageAdapter;
+import com.example.manjunath.farmerhelpapp.others.Upload;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Social extends AppCompatActivity {
 
@@ -40,35 +57,40 @@ public class Social extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
+    private Button machine,labour,sapling,fertilizer;
 
-    private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
+    private static final String urlNavHeaderBg = "https://api.androidhive.info/imagesActivity/nav-menu-header-bg.jpg";
     private static final String urlProfileImg = "https://starsunfolded.com/wp-content/uploads/2015/01/MS-Dhoni-long-hairs.jpg";
     public static int navItemIndex = 0;
-
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
-
     // toolbar titles respected to selected nav menu item
     private String[] activityTitles;
 
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+
+    //recycleview
+    /*
+    private RecyclerView mrecyclerview;
+    private ProgressBar mprogressbar;
+    private ImageAdapter mAdapter;
+    private DatabaseReference mDatabaseRef;
+    private List<Upload> muploads;
+    */
+    //recycleviewend
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mHandler = new Handler();
-
-
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -82,6 +104,48 @@ public class Social extends AppCompatActivity {
 
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+
+        machine = (Button)findViewById(R.id.machine);
+        Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/FontleroyBrownNF.ttf");
+        machine.setTypeface(typeface);
+        machine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Social.this,imagesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //recycleview action
+        /*
+        mrecyclerview = findViewById(R.id.recycleview);
+        mrecyclerview.setHasFixedSize(true);
+        mrecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        muploads = new ArrayList<>();
+        mprogressbar = findViewById(R.id.progress_circle);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()){
+                    Upload upload = postsnapshot.getValue(Upload.class);
+                    muploads.add(upload);
+                }
+                mAdapter = new ImageAdapter(Social.this,muploads);
+                mrecyclerview.setAdapter(mAdapter);
+                mprogressbar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Social.this,databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+                mprogressbar.setVisibility(View.INVISIBLE);
+            }
+        });
+        */
+        //recycleview action end
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +167,6 @@ public class Social extends AppCompatActivity {
             loadHomeFragment();
         }
     }
-
     /***
      * Load navigation menu header information
      * like background image, profile image
@@ -146,7 +209,6 @@ public class Social extends AppCompatActivity {
         // just close the navigation drawer
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawer.closeDrawers();
-
             // show or hide the fab button
             toggleFab();
             return;

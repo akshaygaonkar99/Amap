@@ -30,6 +30,8 @@
             android:textColor="@android:color/white" />
 
     </android.support.design.widget.TextInputLayout>
+
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -69,23 +71,6 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/state"
-                android:textColorHint="@android:color/white"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
                 android:id="@+id/pincode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,12 +85,24 @@
 
         <ImageButton
             android:id="@+id/addimage"
-            android:layout_width="@dimen/logo_w_h"
-            android:layout_height="@dimen/logo_w_h"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/sharp_add_a_photo_black_48dp" />
+
+        <Button
+            android:id="@+id/submit"
+            android:text="@string/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 

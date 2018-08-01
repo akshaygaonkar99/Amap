@@ -86,5 +86,10 @@
 
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="submit">SUBMIT</string>
+    <string name="imagedname">Name</string>
+    <string name="imageddistrict">District</string>
+    <string name="contact_no">contact no</string>
+    <string name="pincodeimaged">pincode</string>
 
 </resources>
